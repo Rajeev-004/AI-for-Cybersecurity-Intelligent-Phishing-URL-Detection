@@ -1,63 +1,109 @@
+# PROJECT: AI for Cybersecurity — Proposed System
 
+This system builds an AI-driven phishing URL detection model focused on real
+login-page URLs using the PILU-90K dataset. It evaluates multiple pipelines
+(handcrafted features, TF-IDF + ML/DL, CNN) and includes temporal testing and
+domain frequency analysis to ensure long-term robustness.
 
-This project presents an AI-based phishing URL detection system built using a 
-realistic dataset called PILU-90K. The system focuses on detecting phishing 
-attempts through login-page URL analysis and addresses the limitations found in 
-traditional detection methods and outdated datasets.
-
-# OBJECTIVES
-- Understand challenges in phishing URL detection
-- Build an AI-driven system with high accuracy
-- Analyze URLs using TF-IDF, CNN, GRU, and handcrafted features
-- Evaluate model performance over different years (temporal analysis)
-- Identify attacker trends using domain frequency analysis
-- Use a realistic login-page-oriented dataset (PILU-90K)
-
-# DATASET OVERVIEW (PILU-90K)
-- 30,000 phishing URLs
-- 30,000 legitimate login URLs
-- 30,000 legitimate homepage URLs
+# DATASET: PILU-90K
 - Total: 90,000 URLs
-- Designed to represent real login-page phishing scenarios
+  - 30,000 phishing URLs
+  - 30,000 legitimate login URLs
+  - 30,000 legitimate homepage URLs
+- Purpose: provide realistic login-page training data for phishing detection.
 
-# TECHNICAL APPROACH
+# PIPELINE STRUCTURE / TECHNICAL APPROACH
 
-1. Handcrafted Feature Pipeline
-   - Uses 38 lexical, structural, and host-based URL features
-   - Trained using multiple supervised ML classifiers
+## 1) Handcrafted Features + Machine Learning
+- Uses 38 lexical, structural, and host-based features:
+  - URL length
+  - digit count
+  - special characters
+  - presence of IP address
+  - subdomain count
+  - TLD patterns
+- Models used:
+  - SVM, Random Forest, Decision Tree, Naive Bayes, Logistic Regression
+- Purpose: baseline evaluation and feature interpretability.
 
-2. TF-IDF + Machine/Deep Learning Models
-   - Character-level N-gram TF-IDF extraction
-   - Models used: Logistic Regression, GRU
-   - Best accuracy achieved: 96.50% (TF-IDF + Logistic Regression)
+## 2) TF-IDF (Character N-gram) + ML/DL Models
+- Extracts character-level n-gram patterns via TF-IDF.
+- Captures common phishing indicators (login, secure, verify, cgi-bin, .php).
+- Models:
+  - Logistic Regression (best performance)
+  - GRU (RNN-based)
+- Accuracy:
+  - TF-IDF + Logistic Regression ≈ **96.50%**
+- Advantages:
+  - fast, lightweight, scalable
+  - works well on large, text-heavy datasets.
 
-3. Character-Level CNN
-   - Learns URL structural patterns
-   - Useful for detecting adversarial and obfuscated URLs
+## 3) Character-Level CNN
+- Input: raw URL characters → embeddings → convolution filters.
+- Capable of detecting:
+  - obfuscation attacks
+  - character substitution (e.g., paypa1 vs paypal)
+  - random character injection
+- Useful against adversarial URL manipulation.
 
-# TEMPORAL ROBUSTNESS ANALYSIS
-- Model trained on URLs from 2016
-- Evaluated on datasets from 2017 to 2020
-- Results show a drop in accuracy over time
-- Confirms that phishing techniques evolve rapidly
-- Suggests the need for frequent dataset updates
+# TEMPORAL ROBUSTNESS TESTING
+- Training set: URLs collected in 2016
+- Testing sets: URLs from 2017, 2018, 2019, 2020
+- Observation:
+  - Models lose accuracy on newer URLs.
+- Conclusion:
+  - phishing techniques evolve rapidly
+  - datasets must be updated regularly
+  - detection systems require periodic retraining.
 
-# PHISHING DOMAIN FREQUENCY ANALYSIS
-- Analysis reveals six main phishing domain categories
-- Shows attacker hosting and infrastructure patterns
-- Helps understand modern phishing campaigns
+# PHISHING DOMAIN FREQUENCY & PATTERN ANALYSIS
+- Examined attacker domain behavior:
+  - free hosting services
+  - rapid domain rotation (fast-flux)
+  - disposable TLDs (.xyz, .top, .online)
+  - clones of popular brand login pages
+- Found six major domain categories used by attackers.
+- Helps improve threat intelligence and blacklist automation.
 
-# ADVANTAGES OF THE PROPOSED SYSTEM
-- Real login-based phishing detection
-- High accuracy (96.50%)
-- Handles modern phishing techniques
-- Uses realistic dataset instead of outdated ones
-- Strong ML/DL pipelines (LR, GRU, CNN)
-- Works without third-party services like WHOIS
+# SYSTEM WORKFLOW
 
-# SUMMARY
-This project delivers an AI-driven phishing URL detection framework using a 
-realistic login-based dataset. By combining TF-IDF, CNN, GRU models, handcrafted 
-features, and temporal evaluation, the system provides a reliable and adaptive 
-solution for detecting modern phishing attacks. PILU-90K and the analysis 
-methods make this system relevant for cybersecurity research and SOC operations.
+1. Raw URL collection  
+2. Labeling (phishing vs legitimate)  
+3. URL preprocessing and normalization  
+4. Feature extraction (handcrafted, TF-IDF, CNN inputs)  
+5. Train ML/DL models  
+6. Test on both random and time-separated datasets  
+7. Perform phishing domain frequency analysis  
+8. Select best model (TF-IDF + LR)  
+9. Deploy detection model + monitoring pipeline  
+
+# KEY ADVANTAGES
+
+- Realistic login-page representation  
+- High accuracy (96.50%)  
+- Independent from external tools (WHOIS, PageRank)  
+- Robust model evaluation using temporal datasets  
+- Strong ML/DL mix (LR, GRU, CNN)  
+- Scalable and production-ready  
+- Effective against obfuscated URLs  
+
+# LIMITATIONS & MITIGATION
+
+- Dataset aging → solved via periodic retraining.  
+- Obfuscation attacks → mitigated using CNN and TF-IDF n-grams.  
+- Large-scale URL changes → enhanced via domain intelligence analysis.  
+
+# DEPLOYMENT RECOMMENDATION 
+
+- Preprocessing pipeline → clean URLs and vectorize with TF-IDF  
+- Model server → expose REST API returning phishing probability  
+- SOC integration → alert generation, SIEM ingestion, URL filtering  
+- Monitoring → drift detection and dataset update triggers  
+
+# CONCLUSION
+
+The proposed system introduces an accurate, robust, and login-focused phishing
+detection architecture using the PILU-90K dataset. By combining TF-IDF, LR, GRU,
+and CNN models—and validating performance across multiple years—the system
+provides a strong foundation for intelligent cybersecurity automation and
+real-world phishing defense.
