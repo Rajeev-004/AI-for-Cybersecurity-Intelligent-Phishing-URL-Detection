@@ -5,7 +5,7 @@ realistic dataset called PILU-90K. The system focuses on detecting phishing
 attempts through login-page URL analysis and addresses the limitations found in 
 traditional detection methods and outdated datasets.
 
-OBJECTIVES
+# OBJECTIVES
 - Understand challenges in phishing URL detection
 - Build an AI-driven system with high accuracy
 - Analyze URLs using TF-IDF, CNN, GRU, and handcrafted features
@@ -13,14 +13,14 @@ OBJECTIVES
 - Identify attacker trends using domain frequency analysis
 - Use a realistic login-page-oriented dataset (PILU-90K)
 
-DATASET OVERVIEW (PILU-90K)
+# DATASET OVERVIEW (PILU-90K)
 - 30,000 phishing URLs
 - 30,000 legitimate login URLs
 - 30,000 legitimate homepage URLs
 - Total: 90,000 URLs
 - Designed to represent real login-page phishing scenarios
 
-TECHNICAL APPROACH
+# TECHNICAL APPROACH
 
 1. Handcrafted Feature Pipeline
    - Uses 38 lexical, structural, and host-based URL features
@@ -35,19 +35,19 @@ TECHNICAL APPROACH
    - Learns URL structural patterns
    - Useful for detecting adversarial and obfuscated URLs
 
-TEMPORAL ROBUSTNESS ANALYSIS
+# TEMPORAL ROBUSTNESS ANALYSIS
 - Model trained on URLs from 2016
 - Evaluated on datasets from 2017 to 2020
 - Results show a drop in accuracy over time
 - Confirms that phishing techniques evolve rapidly
 - Suggests the need for frequent dataset updates
 
-PHISHING DOMAIN FREQUENCY ANALYSIS
+# PHISHING DOMAIN FREQUENCY ANALYSIS
 - Analysis reveals six main phishing domain categories
 - Shows attacker hosting and infrastructure patterns
 - Helps understand modern phishing campaigns
 
-ADVANTAGES OF THE PROPOSED SYSTEM
+# ADVANTAGES OF THE PROPOSED SYSTEM
 - Real login-based phishing detection
 - High accuracy (96.50%)
 - Handles modern phishing techniques
@@ -55,7 +55,7 @@ ADVANTAGES OF THE PROPOSED SYSTEM
 - Strong ML/DL pipelines (LR, GRU, CNN)
 - Works without third-party services like WHOIS
 
-SUMMARY
+# SUMMARY
 This project delivers an AI-driven phishing URL detection framework using a 
 realistic login-based dataset. By combining TF-IDF, CNN, GRU models, handcrafted 
 features, and temporal evaluation, the system provides a reliable and adaptive 
