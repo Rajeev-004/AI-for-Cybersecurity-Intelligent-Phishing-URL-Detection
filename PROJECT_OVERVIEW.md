@@ -1,5 +1,4 @@
-# PROJECT: AI for Cybersecurity — Proposed System
-
+# AI for Cybersecurity: From Adversarial Anomaly Detection to Intelligent Network Security Systems (Phishing URL)
 This system builds an AI-driven phishing URL detection model focused on real
 login-page URLs using the PILU-90K dataset. It evaluates multiple pipelines
 (handcrafted features, TF-IDF + ML/DL, CNN) and includes temporal testing and
